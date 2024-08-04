@@ -1,5 +1,5 @@
 import { Box, LinearProgress, Typography, useMediaQuery, useTheme } from "@mui/material"
-import { capitalize, darkerTypeColors, lighterTypeColors, typeColors } from "../../../utils/utils"
+import { capitalize, typeColors } from "../../../utils/utils"
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 
@@ -15,7 +15,7 @@ export const StatDetails = () => {
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
-          backgroundColor: lighterTypeColors[pokemon.types[0].type.name],
+          backgroundColor: typeColors[pokemon.types[0].type.name].light,
           boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
           borderRadius: '15px',
           padding: '1rem',
@@ -32,10 +32,10 @@ export const StatDetails = () => {
             <LinearProgress
               sx={{
                 height: '10px',
-                backgroundColor: typeColors[pokemon.types[0].type.name],
+                backgroundColor: typeColors[pokemon.types[0].type.name].main,
                 borderRadius: '5px',
                 '.MuiLinearProgress-bar	': {
-                  backgroundColor: darkerTypeColors[pokemon.types[0].type.name],
+                  backgroundColor: typeColors[pokemon.types[0].type.name].dark,
                 }
               }}
               variant="determinate"

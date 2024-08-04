@@ -27,7 +27,7 @@ export const Modal = ({ open, onClose, children }: ModalProps) => {
           outline: 'none',
           padding: '2rem',
           borderRadius: '15px',
-          background: pokemon ? typeColors[pokemon.types[0].type.name] : 'white',
+          background: pokemon ? typeColors[pokemon.types[0].type.name].main : 'white',
           width: { xs: '80%', sm: '70%', md: 'auto' },
         }}
       >

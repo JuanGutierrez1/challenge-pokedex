@@ -39,5 +39,9 @@ type PokemonAbility = {
 }
 
 export interface TypeColors {
-  [key: string]: string;
+  [key: string]: {
+    light: string;
+    main: string;
+    dark: string;
+  };
 }

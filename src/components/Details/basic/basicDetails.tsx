@@ -1,5 +1,5 @@
 import { Box, Chip, Typography, useMediaQuery, useTheme } from "@mui/material"
-import { capitalize, getBackgroundColor, lighterTypeColors, typeColors } from "../../../utils/utils"
+import { capitalize, getBackgroundColor, typeColors } from "../../../utils/utils"
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 
@@ -13,7 +13,7 @@ export const BasicDetails = () => {
     pokemon && (
       <Box
         sx={{
-          backgroundColor: lighterTypeColors[pokemon.types[0].type.name],
+          backgroundColor: typeColors[pokemon.types[0].type.name].light,
           padding: '1rem',
           borderRadius: '15px',
           width: { xs: 'auto', sm: 'auto', md: '350px' },
@@ -39,7 +39,7 @@ export const BasicDetails = () => {
         <Typography variant={isSmallScreen ? 'h4' : 'h3'} textAlign='center' fontWeight='bold'>{capitalize(pokemon.name)}</Typography>
         <Box display='flex' justifyContent='center' gap='0.5rem' margin='0.3rem 0rem'>
           {pokemon.types.map(type => (
-            <Chip label={capitalize(type.type.name)} key={type.slot} sx={{ backgroundColor: typeColors[type.type.name], color: 'white', userSelect: 'none', boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px' }} />
+            <Chip label={capitalize(type.type.name)} key={type.slot} sx={{ backgroundColor: typeColors[type.type.name].main, color: 'white', userSelect: 'none', boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px' }} />
           ))}
         </Box>
         <Typography variant="h5">

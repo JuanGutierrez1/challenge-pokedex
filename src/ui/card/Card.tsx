@@ -1,6 +1,7 @@
-import { Typography, Box, Chip } from "@mui/material";
+import { Typography, Box, Chip, CircularProgress } from "@mui/material";
 import { Pokemon } from "../../types/pokemonTypes";
 import { capitalize, getBackgroundColor, typeColors } from "../../utils/utils";
+import { useState } from "react";
 
 interface CardProps {
   pokemon: Pokemon;
@@ -8,6 +9,8 @@ interface CardProps {
 }
 
 export const Card = ({ pokemon, onClick }: CardProps) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <Box
       onClick={onClick}
@@ -53,12 +56,30 @@ export const Card = ({ pokemon, onClick }: CardProps) => {
             <Chip
               label={capitalize(type.type.name)}
               key={type.slot}
-              sx={{ backgroundColor: typeColors[type.type.name], color: 'white', userSelect: 'none' }}
+              sx={{ backgroundColor: typeColors[type.type.name].main, color: 'white', userSelect: 'none' }}
             />
           ))}
         </Box>
       </Box>
-      <img height={120} style={{ userSelect: 'none' }} src={pokemon.sprites.other['official-artwork'].front_default || 'pokeball.png'} alt={pokemon.name} />
+      <img
+        height={120}
+        onLoad={() => setImageLoaded(true)}
+        style={{
+          userSelect: 'none',
+          display: imageLoaded ? 'block' : 'none',
+        }}
+        src={pokemon.sprites.other['official-artwork'].front_default || 'pokeball.png'}
+        alt={pokemon.name}
+      />
+      {
+        !imageLoaded && (
+          <Box height='120px' width='120px' display='flex' justifyContent='center' alignItems='center'>
+            <CircularProgress size={60} thickness={4} sx={{
+              color: typeColors[pokemon.types[0].type.name].main,
+            }} />
+          </Box>
+        )
+      }
     </Box>
   );
 }
