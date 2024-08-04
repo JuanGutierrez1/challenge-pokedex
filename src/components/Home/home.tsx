@@ -54,7 +54,7 @@ export const Home = () => {
           ))
         )}
         {!isLoading && pokemonList.length === 0 && (
-          <Box gridColumn='span 2' textAlign='center' width='100%'>
+          <Box gridColumn='span 4' textAlign='center' width='100%'>
             <Typography variant="h4" fontWeight='bold'>No pokemon found</Typography>
           </Box>
         )}
