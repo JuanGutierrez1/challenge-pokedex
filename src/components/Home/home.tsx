@@ -1,5 +1,5 @@
-import { Box, Pagination, Skeleton, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Pagination, Skeleton, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { useState } from "react";
 import { Pokemon } from "../../types/pokemonTypes";
 import { Card } from "../../ui/card/Card";
 import { POKEMON_PER_PAGE } from "../../utils/utils";
@@ -32,10 +32,6 @@ export const Home = () => {
     setModalOpen(true);
   }
 
-  useEffect(() => {
-    fetchPokemon()
-  }, []);
-
   return (
     <Box display={'flex'} flexDirection={'column'} gap='2rem' justifyContent='center'>
       <Box>
@@ -51,12 +47,17 @@ export const Home = () => {
             <Skeleton key={index} variant="rounded" height={135} />
           ))
         )}
+        {!isLoading && pokemonList.length === 0 && (
+          <Box gridColumn='span 2' textAlign='center' width='100%'>
+            <Typography variant="h4" fontWeight='bold'>No pokemon found</Typography>
+          </Box>
+        )}
       </Box>
       <Pagination
         sx={{ '.MuiPagination-ul': { justifyContent: 'center' } }}
         count={totalPages}
         page={currentPage}
-        onChange={(e, value) => fetchPokemon(value)}
+        onChange={(_, value) => fetchPokemon(value)}
       />
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
         <Details />

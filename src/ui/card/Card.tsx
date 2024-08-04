@@ -26,15 +26,39 @@ export const Card = ({ pokemon, onClick }: CardProps) => {
       }}
     >
       <Box display='flex' flexDirection='column' justifyContent='center' gap='0.3rem' >
-        <Typography sx={{ userSelect: 'none' }} textAlign='start' fontWeight='bold' lineHeight='normal'>#{pokemon.id}</Typography>
-        <Typography sx={{ userSelect: 'none' }} fontSize='1.5rem' fontWeight='bold' color='#f5f5f5' textAlign='start' lineHeight='normal'>{capitalize(pokemon.name)}</Typography>
+        <Typography
+          sx={{
+            userSelect: 'none',
+            textAlign: 'start',
+            fontWeight: 'bold',
+            lineHeight: 'normal'
+          }}
+        >
+          #{pokemon.id}
+        </Typography>
+        <Typography
+          sx={{
+            userSelect: 'none',
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            color: '#f5f5f5',
+            textAlign: 'start',
+            lineHeight: 'normal'
+          }}
+        >
+          {capitalize(pokemon.name)}
+        </Typography>
         <Box display='flex' gap='1rem' justifyContent='start' marginTop='0.2rem' >
           {pokemon.types.map(type => (
-            <Chip label={capitalize(type.type.name)} key={type.slot} sx={{ backgroundColor: typeColors[type.type.name], color: 'white', userSelect: 'none' }} />
+            <Chip
+              label={capitalize(type.type.name)}
+              key={type.slot}
+              sx={{ backgroundColor: typeColors[type.type.name], color: 'white', userSelect: 'none' }}
+            />
           ))}
         </Box>
       </Box>
-      <img height={120} style={{ userSelect: 'none' }} src={pokemon.sprites.other['official-artwork'].front_default} alt={pokemon.name} />
+      <img height={120} style={{ userSelect: 'none' }} src={pokemon.sprites.other['official-artwork'].front_default || 'pokeball.png'} alt={pokemon.name} />
     </Box>
   );
 }
