@@ -1,45 +1,34 @@
-import { Box, Pagination, Skeleton, TextField, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Pagination, Skeleton, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { pokemonService } from "../../services/pokemonService";
 import { Pokemon } from "../../types/pokemonTypes";
 import { Card } from "../../ui/card/Card";
-import SearchIcon from '@mui/icons-material/Search';
 import { POKEMON_PER_PAGE } from "../../utils/utils";
 import { Details } from "../Details/details";
 import { Modal } from "../../ui/modal/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { selectPokemon } from "../../store/slices/pokemonSlice";
+import { TextField } from "../../ui/textfield/TextField";
+import { useFetchPokemon } from "../../hooks/useFetchPokemon";
 
 export const Home = () => {
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
-  const [search, setSearch] = useState('');
-  const [totalPages, setTotalPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
   const theme = useTheme();
+  const dispatch = useDispatch();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const pokemonList = useSelector((state: RootState) => state.pokemon.list);
 
-  const handleSearch = async () => {
-    fetchPokemon()
-  }
+  const {
+    fetchPokemon,
+    isLoading,
+    currentPage,
+    totalPages,
+    setSearch
+  } = useFetchPokemon();
 
-  const fetchPokemon = async (page: number = currentPage) => {
-    setIsLoading(true);
-    const response = await pokemonService.getPokemon(search, (page - 1) * POKEMON_PER_PAGE);
-    setCurrentPage(page);
-    setPokemonList(response.results);
-    setTotalPages(Math.ceil(response.data.count / POKEMON_PER_PAGE));
-    setIsLoading(false);
-  }
-
-  const handleOnKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  }
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleCardClick = (pokemon: Pokemon) => {
-    setSelectedPokemon(pokemon);
+    dispatch(selectPokemon(pokemon));
     setModalOpen(true);
   }
 
@@ -52,23 +41,14 @@ export const Home = () => {
       <Box>
         <img src="logo.png" alt="site logo" height={isSmallScreen ? 92 : 184} width={isSmallScreen ? 250 : 500} />
       </Box>
-      <TextField
-        sx={{ backgroundColor: 'white' }}
-        onChange={(e) => setSearch(e.target.value)}
-        label="Search a pokemon!"
-        variant="outlined"
-        onKeyDown={handleOnKeyDown}
-        InputProps={{
-          endAdornment: <SearchIcon sx={{ cursor: 'pointer' }} onClick={handleSearch} />,
-        }}
-      />
+      <TextField onSearch={fetchPokemon} onChange={(value) => setSearch(value)} />
       <Box display={'grid'} gridTemplateColumns={'repeat(auto-fill, minmax(300px, 1fr))'} gap={'1rem'}>
         {!isLoading && pokemonList.length > 0 && pokemonList.map((pokemon) => (
           <Card key={pokemon.id} pokemon={pokemon} onClick={() => handleCardClick(pokemon)} />
         ))}
         {isLoading && (
           [...Array(POKEMON_PER_PAGE)].map((_, index) => (
-            <Skeleton key={index} variant="rounded" width={300} height={135} />
+            <Skeleton key={index} variant="rounded" height={135} />
           ))
         )}
       </Box>
@@ -78,8 +58,8 @@ export const Home = () => {
         page={currentPage}
         onChange={(e, value) => fetchPokemon(value)}
       />
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)} pokemon={selectedPokemon}>
-        <Details pokemon={selectedPokemon} />
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+        <Details />
       </Modal>
     </Box>
   );

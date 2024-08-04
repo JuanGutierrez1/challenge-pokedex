@@ -4,6 +4,7 @@ export type Pokemon = {
   url: string;
   types: PokemonType[],
   stats: PokemonStat[],
+  abilities: PokemonAbility[],
   height: number;
   weight: number;
   sprites: {
@@ -28,6 +29,13 @@ type PokemonStat = {
   stat: {
     name: string;
   }
+}
+
+type PokemonAbility = {
+  ability: {
+    name: string;
+  },
+  is_hidden: boolean;
 }
 
 export interface TypeColors {

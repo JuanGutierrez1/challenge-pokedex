@@ -13,7 +13,6 @@ export const pokemonService = {
       return { data, results: pokemonList };
     }
     // I make the search here because de API doesn't have a search endpoint or query parameter
-    // TODO - Dont fetch all pokemon all the time
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=10000`);
     const data = await response.json();
     const filteredData = data.results.filter((pokemon: Pokemon) => pokemon.name.includes(name.toLowerCase()));

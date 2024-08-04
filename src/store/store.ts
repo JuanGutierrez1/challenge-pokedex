@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import catchedReducer from './slices/catchedSlice'
+import pokemonReducer from './slices/pokemonSlice'
 
 export const store = configureStore({
   reducer: {
-    catched: catchedReducer,
+    pokemon: pokemonReducer,
   },
 })
 

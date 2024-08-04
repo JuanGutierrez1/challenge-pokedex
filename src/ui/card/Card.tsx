@@ -19,12 +19,13 @@ export const Card = ({ pokemon, onClick }: CardProps) => {
         borderRadius: '15px',
         boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
         transition: 'transform 0.2s',
+        cursor: 'pointer',
         '&:hover': {
           transform: 'scale(1.05)',
         }
       }}
     >
-      <Box display='flex' flexDirection='column' justifyContent='center' gap='0.3rem' sx={{ cursor: 'pointer' }}>
+      <Box display='flex' flexDirection='column' justifyContent='center' gap='0.3rem' >
         <Typography sx={{ userSelect: 'none' }} textAlign='start' fontWeight='bold' lineHeight='normal'>#{pokemon.id}</Typography>
         <Typography sx={{ userSelect: 'none' }} fontSize='1.5rem' fontWeight='bold' color='#f5f5f5' textAlign='start' lineHeight='normal'>{capitalize(pokemon.name)}</Typography>
         <Box display='flex' gap='1rem' justifyContent='start' marginTop='0.2rem' >
