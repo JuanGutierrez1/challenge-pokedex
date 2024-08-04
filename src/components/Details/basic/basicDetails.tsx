@@ -1,11 +1,13 @@
-import { Box, Chip, Typography, useMediaQuery, useTheme } from "@mui/material"
+import { Box, Chip, CircularProgress, Typography, useMediaQuery, useTheme } from "@mui/material"
 import { capitalize, getBackgroundColor, typeColors } from "../../../utils/utils"
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { useState } from "react";
 
 export const BasicDetails = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const pokemon = useSelector((state: RootState) => state.pokemon.selected);
 
@@ -34,7 +36,22 @@ export const BasicDetails = () => {
           margin='0 auto'
           boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
         >
-          <img src={pokemon.sprites.other['official-artwork'].front_default || 'pokeball.png'} alt={pokemon.name} height={100} />
+          <img
+            src={pokemon.sprites.other['official-artwork'].front_default || 'pokeball.png'}
+            alt={pokemon.name}
+            height={100}
+            style={{ display: imageLoaded ? 'block' : 'none' }}
+            onLoad={() => setImageLoaded(true)}
+          />
+          {
+            !imageLoaded && (
+              <Box height='100px' width='100px' display='flex' justifyContent='center' alignItems='center'>
+                <CircularProgress size={60} thickness={4} sx={{
+                  color: typeColors[pokemon.types[0].type.name].main,
+                }} />
+              </Box>
+            )
+          }
         </Box>
         <Typography variant={isSmallScreen ? 'h4' : 'h3'} textAlign='center' fontWeight='bold'>{capitalize(pokemon.name)}</Typography>
         <Box display='flex' justifyContent='center' gap='0.5rem' margin='0.3rem 0rem'>
