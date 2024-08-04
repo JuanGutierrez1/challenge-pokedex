@@ -40,6 +40,6 @@ Follow these steps to set up the project on your local machine:
     npm run dev
     ```
 
-2. Open your browser and go to `http://localhost:3000` to see the application in action.
+2. Open your browser and go to `http://localhost:5173` to see the application in action.
 
 3. **Enjoy exploring the world of Pokémon!**
