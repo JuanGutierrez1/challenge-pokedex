@@ -20,12 +20,12 @@ Follow these steps to set up the project on your local machine:
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/pokemon-challenge.git
+    git clone https://github.com/JuanGutierrez1/challenge-pokedex.git
     ```
 
 2. Navigate to the project directory:
     ```sh
-    cd pokemon-challenge
+    cd challenge-pokedex
     ```
 
 3. Install the dependencies:
