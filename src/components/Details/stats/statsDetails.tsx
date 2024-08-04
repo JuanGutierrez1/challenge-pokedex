@@ -24,7 +24,7 @@ export const StatDetails = () => {
       >
         <Typography variant={isSmallScreen ? 'h4' : 'h3'} textAlign='center' fontWeight='bold'>Stats</Typography>
         {pokemon.stats.map(stat => (
-          <Box sx={{ width: '100%' }}>
+          <Box key={stat.stat.name} sx={{ width: '100%' }}>
             <Box display='flex' justifyContent='space-between'>
               <Typography fontWeight='bold'>{capitalize(stat.stat.name)}</Typography>
               <Typography fontWeight='bold'>{stat.base_stat}</Typography>

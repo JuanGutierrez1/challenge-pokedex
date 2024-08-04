@@ -7,10 +7,12 @@ import { pokemonService } from "../services/pokemonService";
 export const useFetchPokemon = () => {
   const dispatch = useDispatch();
 
+  const params = new URLSearchParams(window.location.search);
+
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(params.get('search') || '');
 
   const fetchPokemon = async (page: number = currentPage) => {
     setIsLoading(true);
@@ -24,6 +26,13 @@ export const useFetchPokemon = () => {
   useEffect(() => {
     fetchPokemon()
   }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      fetchPokemon();
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [search]);
 
   return {
     fetchPokemon,

@@ -56,7 +56,16 @@ export const BasicDetails = () => {
         <Typography variant={isSmallScreen ? 'h4' : 'h3'} textAlign='center' fontWeight='bold'>{capitalize(pokemon.name)}</Typography>
         <Box display='flex' justifyContent='center' gap='0.5rem' margin='0.3rem 0rem'>
           {pokemon.types.map(type => (
-            <Chip label={capitalize(type.type.name)} key={type.slot} sx={{ backgroundColor: typeColors[type.type.name].main, color: 'white', userSelect: 'none', boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px' }} />
+            <Chip
+              label={capitalize(type.type.name)}
+              key={type.slot}
+              sx={{
+                backgroundColor: typeColors[type.type.name].main,
+                color: 'white',
+                userSelect: 'none',
+                boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px'
+              }}
+            />
           ))}
         </Box>
         <Typography variant="h5">

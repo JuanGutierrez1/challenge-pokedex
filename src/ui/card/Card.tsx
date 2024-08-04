@@ -56,7 +56,12 @@ export const Card = ({ pokemon, onClick }: CardProps) => {
             <Chip
               label={capitalize(type.type.name)}
               key={type.slot}
-              sx={{ backgroundColor: typeColors[type.type.name].main, color: 'white', userSelect: 'none' }}
+              sx={{
+                backgroundColor: typeColors[type.type.name].main,
+                color: 'white',
+                userSelect: 'none',
+                boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px'
+              }}
             />
           ))}
         </Box>

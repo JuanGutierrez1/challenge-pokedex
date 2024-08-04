@@ -15,6 +15,7 @@ export const Home = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isLargeScreen = useMediaQuery(theme.breakpoints.down('lg'));
   const pokemonList = useSelector((state: RootState) => state.pokemon.list);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -24,6 +25,7 @@ export const Home = () => {
     currentPage,
     setCurrentPage,
     totalPages,
+    search,
     setSearch
   } = useFetchPokemon();
 
@@ -41,9 +43,9 @@ export const Home = () => {
   return (
     <Box display={'flex'} flexDirection={'column'} gap='2rem' justifyContent='center'>
       <Box>
-        <img src="logo.png" alt="site logo" height={isSmallScreen ? 92 : 184} width={isSmallScreen ? 250 : 500} />
+        <img src="logo.png" alt="site logo" height={isSmallScreen ? 92 : isLargeScreen ? 138 : 184} width={isSmallScreen ? 250 : isLargeScreen ? 375 : 500} />
       </Box>
-      <TextField onSearch={handleSearch} onChange={(value) => setSearch(value)} />
+      <TextField value={search} onSearch={handleSearch} onChange={(value) => setSearch(value)} />
       <Box display={'grid'} gridTemplateColumns={'repeat(auto-fill, minmax(300px, 1fr))'} gap={'1rem'}>
         {!isLoading && pokemonList.length > 0 && pokemonList.map((pokemon) => (
           <Card key={pokemon.id} pokemon={pokemon} onClick={() => handleCardClick(pokemon)} />
